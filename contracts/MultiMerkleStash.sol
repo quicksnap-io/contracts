@@ -58,7 +58,7 @@ contract MultiMerkleStash is Ownable, ReentrancyGuard {
     }
 
     function claimMulti(address account, claimParam[] calldata claims) external {
-        require(claims.length < 20, "Can't claim more than 20 tokens at once");
+        require(claims.length <= 20, "Can't claim more than 20 tokens at once");
         for (uint256 i = 0; i < claims.length; i++) {
             claim(claims[i].token, claims[i].index, account, claims[i].amount, claims[i].merkleProof);
         }
@@ -66,10 +66,12 @@ contract MultiMerkleStash is Ownable, ReentrancyGuard {
 
     // MULTI SIG FUNCTIONS //
 
-    function updateMerkleRoot(address token, bytes32 _merkleRoot) public onlyOwner {
+    function updateMerkleRoot(address token, bytes32 _merkleRoot, uint256 version) public onlyOwner {
 
         // Increment the update (simulates the clearing of the claimedBitMap)
         update[token] += 1;
+        require(update[token] == version, "version mismatch");
+
         // Set the new merkle root
         merkleRoot[token] = _merkleRoot;
 

@@ -36,7 +36,7 @@ contract BribeV3Snapshot is Ownable, ReentrancyGuard {
     }
 
     function add_reward_amount(string memory proposal, uint256 option, address reward_token, uint256 amount, uint256 startTime, uint256 endTime) nonReentrant external {
-        require(reward_token != address(0));
+        require(reward_token != address(0), "reward token address cannot be 0");
         require(amount > 0, "no reward to add");
 
         uint256 fee = calculate_fee(amount);
