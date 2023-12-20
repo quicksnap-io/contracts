@@ -1,5 +1,5 @@
 {
-  "name": "bribe_v3",
+  "name": "contracts",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,23 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npx hardhat test",
-    "add_snapshot_rewards": "HARDHAT_NETWORK=localhost node scripts/addSnapshotRewards.js",
-    "snapshot_rewards": "HARDHAT_NETWORK=localhost node scripts/calculateSnapshotRewards.js snapshot",
-    "gauge_rewards": "HARDHAT_NETWORK=localhost node scripts/calculateRewards.js gauge",
-    "generate_merkle": "HARDHAT_NETWORK=localhost node scripts/generateMerkle.js",
-    "graph-local-clean": "docker-compose down -v && docker-compose rm -v && rm -rf data/ipfs data/postgres"
+    "test": "npx hardhat test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Saltwater-Lab/bribe_v3.git"
-  },
-  "author": "",
+  "author": "QuickSnap",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Saltwater-Lab/bribe_v3/issues"
-  },
-  "homepage": "https://github.com/Saltwater-Lab/bribe_v3#readme",
   "dependencies": {
     "@ethersproject/providers": "5.4.1",
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.1",
@@ -35,28 +22,16 @@
     "@typechain/ethers-v6": "^0.4.3",
     "@typechain/hardhat": "^8.0.3",
     "@types/mocha": "^10.0.1",
-    "apollo-server": "3.6.7",
-    "bignumber.js": "^9.1.1",
-    "dotenv": "16.3.1",
-    "ethers": "^6.6.7",
-    "graphql": "16.4.0",
-    "graphql-request": "5.0.0",
     "hardhat-gas-reporter": "^1.0.9",
     "keccak256": "1.0.6",
     "merkletreejs": "^0.3.11",
-    "mongoose": "6.3.1",
-    "node-fetch": "2.6.6",
     "prettier": "^3.0.0",
     "solidity-coverage": "^0.8.4",
-    "ts-node": "^10.9.1",
-    "typechain": "^8.3.1",
-    "typescript": "^5.1.6",
-    "web3-eth": "^4.0.3"
+    "dotenv": "16.3.1"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "4.5.0",
     "chai": "4.3.6",
-    "hardhat": "^2.17.1",
-    "web3": "^1.10.0"
+    "hardhat": "^2.17.1"
   }
 }
