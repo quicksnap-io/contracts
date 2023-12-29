@@ -5,14 +5,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract BribeV3Snapshot is Ownable, ReentrancyGuard {
+contract QuickSnap is Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
-
-    struct OptionBribe {
-        uint256 option;
-        address token;
-        uint256 amount;
-    }
 
     uint256 public constant MAX_FEE = 15;
 
@@ -20,7 +14,7 @@ contract BribeV3Snapshot is Ownable, ReentrancyGuard {
     address public feeAddress;
     address public distributionAddress;
 
-    event Bribe(uint256 time, address indexed briber, string proposal, uint256 option, address reward_token, uint256 amount, uint256 startTime, uint256 endTime);
+    event RewardAdded(uint256 time, address indexed rewarder, string proposal, uint256 option, address reward_token, uint256 amount, uint256 startTime, uint256 endTime);
     event FeePercentageUpdated(uint256 oldFee, uint256 newFee);
     event FeeAddressUpdated(address oldAddress, address newAddress);
     event DistributionAddressUpdated(address oldAddress, address newAddress);
@@ -36,7 +30,7 @@ contract BribeV3Snapshot is Ownable, ReentrancyGuard {
     }
 
     function add_reward_amount(string memory proposal, uint256 option, address reward_token, uint256 amount, uint256 startTime, uint256 endTime) nonReentrant external {
-        require(reward_token != address(0));
+        require(reward_token != address(0), "reward token address cannot be 0");
         require(amount > 0, "no reward to add");
 
         uint256 fee = calculate_fee(amount);
@@ -45,7 +39,7 @@ contract BribeV3Snapshot is Ownable, ReentrancyGuard {
         IERC20(reward_token).safeTransferFrom(msg.sender, feeAddress, fee);
         IERC20(reward_token).safeTransferFrom(msg.sender, distributionAddress, amount);
 
-        emit Bribe(block.timestamp, msg.sender, proposal, option, reward_token, amount, startTime, endTime);
+        emit RewardAdded(block.timestamp, msg.sender, proposal, option, reward_token, amount, startTime, endTime);
     }
 
     function set_fee_percentage(uint256 _feePercentage) external onlyOwner {
