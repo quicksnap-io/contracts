@@ -1,0 +1,5 @@
+module.exports = [
+    10,
+    "0xE2db7ef93684d06BbF47137000065cF26E878B2e",
+    "0xE2db7ef93684d06BbF47137000065cF26E878B2e"
+];
