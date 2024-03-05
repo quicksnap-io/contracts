@@ -27,6 +27,13 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {
+    localhost: {
+      url: "http://127.0.0.1:8545",
+      forking: {
+        url: process.env.WEB3_RPC_ETHEREUM,
+        blockNumber: 19355900, // you can put a block number in order to test at a specific time which also uses less resources on your computer
+      },
+    },
     // hardhat: {
     //   chainId: 324,
     //   zksync: true,
@@ -38,19 +45,12 @@ module.exports = {
     //   },
     // },
     hardhat: {
-      chainId: 137,
+       chainId: 1,
       forking: {
-        url: process.env.WEB3_RPC_MATIC,
-        blockNumber: 54227900, // you can put a block number in order to test at a specific time which also uses less resources on your computer
-      },
+         url: process.env.WEB3_RPC_ETHEREUM,
+         blockNumber: 19355900, // you can put a block number in order to test at a specific time which also uses less resources on your computer
     },
-    // hardhat: {
-    //   chainId: 1,
-    //   forking: {
-    //     url: process.env.WEB3_RPC_ETHEREUM,
-    //     blockNumber: 19355900, // you can put a block number in order to test at a specific time which also uses less resources on your computer
-    //   },
-    // }
+    },
     mainnet: {
       url: process.env.WEB3_RPC_ETHEREUM,
       accounts: [process.env.PRIVATE_KEY],
@@ -60,7 +60,6 @@ module.exports = {
       url: process.env.WEB3_RPC_MATIC,
       accounts: [process.env.PRIVATE_KEY],
       zksync: false
-
     },
     mumbai: {
       url: process.env.WEB3_RPC_MUMBAI,
