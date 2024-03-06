@@ -190,7 +190,7 @@ describe.only("QuickSnap ", function () {
     //   expect(quicksnaps[0].amount.toString()).to.equal(
     //     toBN(amount).minus(calculatedFee).toFixed().toString(),
     //   );
-    });
+    //});
     it("Should fail add_reward_amount if amount is null", async function () {
       const reason = "no reward to add";
 
