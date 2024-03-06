@@ -106,8 +106,8 @@ describe.only("QuickSnap ", function () {
     // function is private in the contract
     before(async function () {
     amount = ethers.parseUnits("100000", decimals);
-    //feePercentage = await quicksnap.feePercentage();
-    //calculatedFee = toBN(amount).times(feePercentage).div(100);
+    feePercentage = await quicksnap.feePercentage();
+    calculatedFee = toBN(amount).times(feePercentage).div(100);
     //   expect((await quicksnap.calculate_fee(amount)).toString()).to.equal(
     //     toBN(calculatedFee).toFixed().toString(),
     //   );
