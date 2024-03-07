@@ -92,6 +92,11 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       zksync: false,
     },
+    OPMainnet: {
+      url: "https://mainnet.optimism.io",
+      accounts: [process.env.PRIVATE_KEY],
+      zksync: false,
+    },
   },
   solidity: {
     compilers: [
