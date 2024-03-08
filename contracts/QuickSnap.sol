@@ -19,11 +19,13 @@ contract QuickSnap is Ownable, ReentrancyGuard {
     event FeeAddressUpdated(address oldAddress, address newAddress);
     event DistributionAddressUpdated(address oldAddress, address newAddress);
 
-    constructor(uint256 _feePercentage, address _feeAddress, address _distributionAddress) {
+    constructor(address _owner, uint256 _feePercentage, address _feeAddress, address _distributionAddress) {
+        require(_owner != address(0), "owner cannot be zero address");
         require(_feePercentage > 0, "Fee cannot be 0");
         require(_feePercentage <= MAX_FEE, "Fee too high");
         require(_feeAddress != address(0), "wrong fee address");
         require(_distributionAddress != address(0), "wrong distribution address");
+        _transferOwnership(_owner);
         feePercentage = _feePercentage;
         feeAddress = _feeAddress;
         distributionAddress = _distributionAddress;

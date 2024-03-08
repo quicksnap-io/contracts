@@ -27,6 +27,11 @@ contract MultiMerkleStash is Ownable, ReentrancyGuard {
     // This is a packed array of booleans.
     mapping(address => mapping(uint256 => mapping(uint256 => uint256))) private claimedBitMap;
 
+    constructor(address _owner){
+        require(_owner != address(0), "owner cannot be zero address");
+        _transferOwnership(_owner);
+    }
+
 
     function isClaimed(address token, uint256 index) public view returns (bool) {
         uint256 claimedWordIndex = index / 256;
