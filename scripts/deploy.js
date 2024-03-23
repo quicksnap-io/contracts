@@ -48,7 +48,7 @@ async function deployContract(contractName, constructorArgs) {
 
   // <<<< --- change salt value ---- >>>>
 
-  const saltval = 9022; // Replace with any desired 32-byte value
+  const saltval = 9024; // Replace with any desired 32-byte value
   const salt = ethers.zeroPadValue("0x" + BigInt(saltval).toString(16), 32);
 
   // Deploy the contract using the Factory
