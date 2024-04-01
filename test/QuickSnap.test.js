@@ -24,13 +24,14 @@ describe.only("QuickSnap ", function () {
 
   const fee = 10;
   // took those from the proposal start and end
-  const startTime = 1663871400
-  const endTime = 1664130600
+  const startTime = 1663871400;
+  const endTime = 1664130600;
 
   before("setup", async () => {
     [owner, initialFees, fees, initialDistribution, distribution, user] =
       await ethers.getSigners();
     quicksnap = await ethers.deployContract("QuickSnap", [
+      owner.address,
       fee,
       initialFees.address,
       initialDistribution.address,
@@ -105,12 +106,12 @@ describe.only("QuickSnap ", function () {
   describe("Rewards", async function () {
     // function is private in the contract
     before(async function () {
-    amount = ethers.parseUnits("100000", decimals);
-    feePercentage = await quicksnap.feePercentage();
-    calculatedFee = toBN(amount).times(feePercentage).div(100);
-    //   expect((await quicksnap.calculate_fee(amount)).toString()).to.equal(
-    //     toBN(calculatedFee).toFixed().toString(),
-    //   );
+      amount = ethers.parseUnits("100000", decimals);
+      feePercentage = await quicksnap.feePercentage();
+      calculatedFee = toBN(amount).times(feePercentage).div(100);
+      //   expect((await quicksnap.calculate_fee(amount)).toString()).to.equal(
+      //     toBN(calculatedFee).toFixed().toString(),
+      //   );
     });
     beforeEach(async function () {
       await quicksnap.connect(owner).set_fee_address(fees.address);
@@ -124,18 +125,29 @@ describe.only("QuickSnap ", function () {
       //const timestamp = await getCurrentBlockTimestamp();
       const tx = await quicksnap
         .connect(whale)
-        .add_reward_amount(proposal, option, rewardTokenAddress, amount, startTime,
-          endTime);
-      console.log(tx)
-      await expect(tx)
-        .to.emit(quicksnap, "RewardAdded")
+        .add_reward_amount(
+          proposal,
+          option,
+          rewardTokenAddress,
+          amount,
+          startTime,
+          endTime,
+        );
+      console.log(tx);
+      await expect(tx).to.emit(quicksnap, "RewardAdded");
     });
     it("Should update whale balance", async function () {
       const balanceWhaleBefore = await rewardToken.balanceOf(whaleAddress);
       await quicksnap
         .connect(whale)
-        .add_reward_amount(proposal, option, rewardTokenAddress, amount, startTime,
-          endTime);
+        .add_reward_amount(
+          proposal,
+          option,
+          rewardTokenAddress,
+          amount,
+          startTime,
+          endTime,
+        );
       const balanceWhaleAfter = await rewardToken.balanceOf(whaleAddress);
 
       expect(
@@ -146,8 +158,14 @@ describe.only("QuickSnap ", function () {
       const balanceFeeBefore = await rewardToken.balanceOf(fees.address);
       await quicksnap
         .connect(whale)
-        .add_reward_amount(proposal, option, rewardTokenAddress, amount, startTime,
-          endTime);
+        .add_reward_amount(
+          proposal,
+          option,
+          rewardTokenAddress,
+          amount,
+          startTime,
+          endTime,
+        );
       const balanceFeeAfter = await rewardToken.balanceOf(fees.address);
 
       expect(toBN(balanceFeeAfter).minus(balanceFeeBefore).toString()).to.equal(
@@ -160,8 +178,14 @@ describe.only("QuickSnap ", function () {
       );
       await quicksnap
         .connect(whale)
-        .add_reward_amount(proposal, option, rewardTokenAddress, amount, startTime,
-          endTime);
+        .add_reward_amount(
+          proposal,
+          option,
+          rewardTokenAddress,
+          amount,
+          startTime,
+          endTime,
+        );
       const balanceDistributionAfter = await rewardToken.balanceOf(
         distribution.address,
       );
@@ -197,8 +221,14 @@ describe.only("QuickSnap ", function () {
       await expect(
         quicksnap
           .connect(whale)
-          .add_reward_amount(proposal, option, rewardTokenAddress, 0, startTime,
-            endTime),
+          .add_reward_amount(
+            proposal,
+            option,
+            rewardTokenAddress,
+            0,
+            startTime,
+            endTime,
+          ),
       ).to.be.revertedWith(reason);
     });
   });
