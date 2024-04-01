@@ -97,6 +97,11 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       zksync: false,
     },
+    BaseMainnet: {
+      url: "https://base-rpc.publicnode.com",
+      accounts: [process.env.PRIVATE_KEY],
+      zksync: false,
+    },
   },
   solidity: {
     compilers: [
