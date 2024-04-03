@@ -102,6 +102,11 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       zksync: false,
     },
+    BNB: {
+      url: "https://bsc-rpc.publicnode.com",
+      accounts: [process.env.PRIVATE_KEY],
+      zksync: false,
+    },
   },
   solidity: {
     compilers: [
